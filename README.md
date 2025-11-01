@@ -56,12 +56,28 @@ The app uses a **secure hybrid architecture** combining:
 7. 💫 **Modern, Animated UI**
    - Built with **Framer Motion**, **OGL**, and a polished dark theme.  
 
+8. 🧰 **Self‑Help Tools (Tabbed Quick Switch)**
+   - One‑click tabs for:
+     - CBT Thought Reframing
+     - Rewards & Encouragements (streaks, progress badge)
+     - Today’s Wellness Suggestion
+   - Compact pill buttons with accessible roles/aria.
+
+9. 🎙️ **Voice Input for AI chat**
+   - Web Speech API mic button with animated state.
+
+10. 🧵 **Streaming AI Responses**
+    - Server‑sent events (SSE) stream with graceful fallback to JSON.
+
+11. 🏠 **Consistent “Go to Home” buttons**
+    - Dashboard‑style pill button with icon replicated across PHQ‑9, GAD‑7, and Questionnaires pages.
+
 ---
 
 ## 🛠️ **Tech Stack & Architecture**
 
-**Frontend:** React, Vite, Firebase, Recharts, Framer Motion, OGL  
-**Backend:** Node.js, Express.js, MongoDB, Firebase Admin SDK, Gemini API  
+**Frontend:** React, Vite, Firebase, Recharts, Framer Motion, OGL, lucide‑react (icons)  
+**Backend:** Node.js, Express.js, MongoDB, Firebase Admin SDK, Gemini API, Socket.IO (installed)  
 **Hosting:** Render  
 **Authentication:** Firebase (Email + Google)
 
@@ -113,7 +129,6 @@ npm start
 cd frontend
 ```
 
-
 ### 2️⃣ Install dependencies
 ```bash
 npm install
@@ -126,7 +141,11 @@ VITE_FIREBASE_PROJECT_ID="your_firebase_project_id"
 VITE_FIREBASE_STORAGE_BUCKET="your_firebase_storage_bucket"
 VITE_FIREBASE_MESSAGING_SENDER_ID="your_sender_id"
 VITE_FIREBASE_APP_ID="your_app_id"
-VITE_BACKEND_URL=http://localhost:3001
+
+# Base URL for backend API used by AI endpoints and results saving
+# The app supports VITE_API_URL (preferred) or VITE_BACKEND_URL for backward compatibility
+VITE_API_URL=http://localhost:3001
+# VITE_BACKEND_URL=http://localhost:3001
 
 ```
 ### 4️⃣ Start the frontend
@@ -137,3 +156,21 @@ npm run dev
 **📜 License**
 
 This project is licensed under the MIT License.
+
+---
+
+## 🆕 What’s New (Highlights)
+
+- Self‑Help Tools tabbed interface (CBT, Rewards & Encouragements, Today’s Wellness)
+- Voice input and SSE streaming for AI chat (with fallback)
+- Dashboard‑style "Go to Home" button replicated across PHQ‑9, GAD‑7, and Questionnaires
+- Layout polish for Articles/Videos, plus improved accessibility on buttons and tabs
+
+## 📦 Notable Libraries Installed
+
+- frontend
+  - react, vite, firebase, framer‑motion, recharts, lucide‑react
+- backend
+  - express, mongoose, firebase‑admin, google‑genai (Gemini), cors, dotenv
+  - socket.io (installed; available for real‑time features)
+

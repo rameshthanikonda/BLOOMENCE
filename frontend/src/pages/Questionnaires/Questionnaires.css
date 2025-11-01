@@ -9,6 +9,13 @@
   align-items: center;
 }
 
+/* Top header row with Home button aligned to the right */
+.qn-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .cards {
   display: flex;
   justify-content: center;
