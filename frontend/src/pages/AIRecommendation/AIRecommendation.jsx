@@ -685,7 +685,7 @@ function CBTReframeCard() {
         setForm({ situation:'', thought:'', evidenceFor:'', evidenceAgainst:'', balanced:'', action:'', before:5, after:5, reflection:'', tags:[] });
     };
     return (
-        <Card title="CBT Thought Reframing" className="tool-wide">
+        <Card title="CBT Thought Reframing" className="cbt-card">
             <div className="cbt-form">
                 <input value={form.situation} onChange={e=>setForm({...form, situation:e.target.value})} placeholder="Situation (what happened?)" />
                 <input value={form.thought} onChange={e=>setForm({...form, thought:e.target.value})} placeholder="Automatic thought" />

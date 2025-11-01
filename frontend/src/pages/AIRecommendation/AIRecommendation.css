@@ -765,6 +765,17 @@
 /* Breathing circle: size only (no color change) */
 .self-help-section .breath-anim .circle { width: 100px; height: 100px; }
 
+/* === CBT Thought Reframing: compact professional layout === */
+.self-help-section .cbt-card { max-width: 560px; margin: 0 auto; }
+.self-help-section .cbt-card .cbt-form { gap: 10px; }
+.self-help-section .cbt-card .cbt-form input,
+.self-help-section .cbt-card .cbt-form textarea { padding: 10px; font-size: 0.95rem; }
+.self-help-section .cbt-card .cbt-scales { row-gap: 6px; margin: 4px 0 6px; }
+.self-help-section .cbt-card .cbt-scales label { font-size: 0.9rem; }
+.self-help-section .cbt-card .cbt-list { max-height: 180px; }
+.self-help-section .cbt-card .cbt-entry { padding: 10px; border-radius: 10px; }
+.self-help-section .cbt-card .cbt-head { margin-bottom: 6px; }
+
 /* Mobile: single column and comfortable padding */
 @media (max-width: 600px) {
   .self-help-section .tools-grid { grid-template-columns: 1fr; }
