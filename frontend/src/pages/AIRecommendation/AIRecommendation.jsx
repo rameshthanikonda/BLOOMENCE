@@ -147,14 +147,14 @@ function SelfHelpTabbed() {
                     role="tab"
                     aria-selected={tab==='rewards'}
                     onClick={()=>setTab('rewards')}
-                >Rewards</button>
+                >Rewards & Encouragements</button>
                 <button
                     type="button"
                     className={`tool-tab ${tab==='wellness'?'active':''}`}
                     role="tab"
                     aria-selected={tab==='wellness'}
                     onClick={()=>setTab('wellness')}
-                >Wellness</button>
+                >Today’s Wellness</button>
             </div>
             <div className="tool-tab-panels">
                 {tab==='cbt' && <CBTReframeCard />}

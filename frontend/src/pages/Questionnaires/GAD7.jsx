@@ -158,7 +158,12 @@ export default function GAD7() {
       <div className="phq9-wrapper">
         <div className="phq9-background" aria-hidden="true"></div>
         <div className="phq9-page">
-          <button className="home-btn" onClick={() => navigate('/')}>Home</button>
+          <button className="home-btn" onClick={() => navigate('/')}> 
+            <svg className="icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M12 3.172 2.293 12.88a1 1 0 0 0 1.414 1.414L5 13.001V20a1 1 0 0 0 1 1h4v-5h4v5h4a1 1 0 0 0 1-1v-6.999l1.293 1.293a1 1 0 0 0 1.414-1.414L12 3.172Z"/>
+            </svg>
+            Go to Home
+          </button>
           <div className="phq9-content">
             <aside className="phq9-side-panel">
               <img
@@ -192,7 +197,12 @@ export default function GAD7() {
     <div className="phq9-wrapper">
       <div className="phq9-background" aria-hidden="true"></div>
       <div className="phq9-page">
-        <button className="home-btn" onClick={() => navigate('/')}>Home</button>
+        <button className="home-btn" onClick={() => navigate('/')}> 
+          <svg className="icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M12 3.172 2.293 12.88a1 1 0 0 0 1.414 1.414L5 13.001V20a1 1 0 0 0 1 1h4v-5h4v5h4a1 1 0 0 0 1-1v-6.999l1.293 1.293a1 1 0 0 0 1.414-1.414L12 3.172Z"/>
+          </svg>
+          Go to Home
+        </button>
         <div className="phq9-content">
           <aside className="phq9-side-panel">
             <img
