@@ -1,0 +1,19 @@
+/* src/index.css */
+
+@import "tailwindcss";
+
+/* 🟢 CRITICAL FIX FOR 100VH OVERLAP 🟢 */
+/* These rules force the browser to respect the full viewport height */
+html, 
+body, 
+#root {
+  /* Ensures the entire vertical space is claimed */
+  height: 100%;
+  min-height: 100vh;
+  /* Resets default browser margins */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* You can add any Tailwind base components or custom utilities here if needed */

@@ -1,0 +1,201 @@
+/* =========================================
+   🌍 GLOBAL BASE STYLES
+   ========================================= */
+
+/* Reset & Base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Slide-down mobile menu */
+.mobile-menu{
+  position: fixed;
+  top: 64px; /* below fixed header */
+  left: 0; right: 0;
+  background: rgba(1,19,13,0.95);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 16px;
+  z-index: 95;
+}
+.mobile-menu ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:8px}
+.mobile-menu li button{width:100%;text-align:left;padding:12px 10px;border:1px solid rgba(255,255,255,0.12);border-radius:8px;background:transparent;color:#e5e7eb;font-weight:600}
+.mobile-close{position:absolute;top:8px;right:8px;background:transparent;border:none;color:#e5e7eb;font-size:20px}
+.mobile-auth{margin-top:12px}
+
+html, body, #root {
+  height: 100%;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #01130d; /* Main background color */
+  color: #f0f0f0;
+  overflow-x: hidden;
+}
+
+/* Ensures full-page structure */
+.homepage-body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  height: auto; /* Allows vertical expansion */
+}
+
+/* =========================================
+   🧭 HEADER & NAVIGATION
+   ========================================= */
+
+.header {
+  width: 100%;
+  padding: 20px 5%;
+  position: fixed; /* Persist on scroll */
+  top: 0;
+  left: 0;
+  z-index: 100; /* Above content */
+  background: rgba(1, 19, 13, 0.6); /* translucent brand bg */
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Hamburger button (hidden on desktop) */
+.hamburger {
+  display: none;
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+  align-items: center;
+  justify-content: center;
+}
+.hamburger span{display:block;width:20px;height:2px;background:#fff;margin:4px auto;border-radius:2px}
+
+.logo {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #ffffff;
+  text-transform: uppercase;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 35px;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: #e0e0e0;
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-transform: capitalize;
+  transition: color 0.3s ease;
+}
+
+.nav-menu li a:hover {
+  color: #00d9a5;
+}
+
+.btn-get-started {
+  text-decoration: none;
+  color: #ffffff;
+  background-color: #00d9a5;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-weight: 700;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.btn-get-started:hover {
+  background-color: #00c795;
+  transform: scale(1.05);
+}
+
+/* =========================================
+   🌅 HERO SECTION
+   ========================================= */
+
+.hero-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* Ensures full viewport height */
+  min-height: 100dvh;
+
+  /* Background & layout context */
+  position: relative; /* Context for LightRays or overlay */
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 850px;
+  position: relative; /* Keeps above background elements */
+  z-index: 5;
+
+  /* Balanced spacing */
+  padding: 120px 20px 40px 20px; /* top space for fixed header */
+}
+
+.hero-content h1 {
+  font-size: clamp(2.5rem, 6vw,2.8rem);
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 1.2rem;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hero-content p {
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
+  color: #c0c0c0;
+  max-width: 650px;
+  line-height: 1.6;
+  margin: 0 auto;
+}
+
+/* =========================================
+   📱 RESPONSIVE ADJUSTMENTS
+   ========================================= */
+
+@media (max-width: 992px) {
+  .nav-menu { display: none; }
+  .hamburger { display: inline-flex; }
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    padding-top: 100px;
+    padding-bottom: 30px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2rem, 6vw, 3.5rem);
+  }
+
+  .hero-content p {
+    font-size: 0.95rem;
+  }
+}
+

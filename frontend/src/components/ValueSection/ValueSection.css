@@ -1,0 +1,190 @@
+/* frontend/src/components/ValueSection/ValueSection.css */
+
+.value-section-container {
+    background-color: #01130d; 
+    padding: 3rem 5% 0 5%; 
+    color: #f0fff7;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    margin-top: 0;
+    position: relative; 
+}
+
+.value-main-title {
+    font-size: clamp(1.6rem, 3vw, 2.2rem); 
+    color: #00d9a5; 
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    display: inline-block; 
+    position: relative;
+    z-index: 2;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+.value-subtitle {
+    font-size: 0.9rem; 
+    color: #a0a8b4;
+    margin-bottom: 2.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative; 
+    z-index: 1;
+    text-align: center;
+}
+
+.value-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); 
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 4rem; 
+    cursor: pointer;
+   
+}
+.value-card:hover  {
+    zoom: 1.20; 
+}
+
+.value-card {
+    background-color: #031221; 
+    border-radius: 10px;
+    padding: 1.2rem; 
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%; 
+}
+
+.value-icon-wrapper {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.4rem; 
+}
+
+.value-title {
+    font-size: 1.1rem; 
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+    line-height: 1.2;
+}
+
+.value-description {
+    font-size: 0.8rem; 
+    color: #c0c0c0;
+    line-height: 1.4;
+}
+
+/* 🟢 EMBEDDED COMPACT FOOTER STYLING */
+.value-footer-embedded {
+    background-color: #01130d; 
+    /* border-top: 1px solid #1c2b3a;  */
+    padding: 1.5rem 0; 
+    width: 100%; 
+    box-sizing: border-box;
+    position: relative; 
+    z-index: 10;
+}
+
+.value-footer-content {
+    display: flex;
+    /* Pushes left and right blocks opposite each other */
+    justify-content: space-between; 
+    align-items: center;
+    /* 🟢 CRITICAL FIX: Increased max-width to give the content room to spread */
+    max-width: 1200px; 
+    margin: 0 auto;
+    padding: 0 5%; /* Horizontal padding */
+    text-align: left; 
+}
+
+.value-footer-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /* 🟢 FIX: Ensure proper space between brand and right links by adjusting padding on the brand text itself */
+    padding-right: 40px; 
+}
+
+.footer-brand-title-small {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: #00d9a5;
+    text-transform: uppercase;
+}
+
+.footer-copyright {
+    font-size: 0.75rem;
+    color: #a0a8b4;
+    margin: 0;
+}
+
+/* 🟢 Right Block: Links and Contact Info */
+.value-footer-right-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; 
+    text-align: right;
+    gap: 5px; 
+    /* 🟢 FIX: Ensures this block doesn't collapse and aligns to the right edge */
+    min-width: 300px; 
+}
+
+.value-footer-links {
+    display: flex;
+    align-items: center;
+    /* 🟢 FIX: Medium space between links */
+    gap: 25px; 
+}
+
+.footer-link-item {
+    font-size: 0.8rem;
+    color: #a0a8b4;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-link-item:hover {
+    color: #00d9a5;
+}
+
+.value-footer-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 0.8rem;
+    color: #a0a8b4;
+    margin-top: 5px;
+}
+
+/* 📱 Responsive adjustments */
+@media (max-width: 768px) {
+    .value-footer-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .value-footer-brand {
+        order: 2;
+        align-items: center; /* Center brand info when stacked */
+        text-align: center; /* Center text when stacked */
+    }
+    .value-footer-right-block {
+        order: 1;
+        align-items: center; /* Center all items in the right block when stacked */
+        text-align: center;
+    }
+    .value-footer-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+}

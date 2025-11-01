@@ -1,0 +1,426 @@
+/* ============================================
+   PHQ9.css — Modern Green Theme
+=============================================== */
+
+/* --- OUTER WRAPPER: Centers the entire questionnaire --- */
+
+.phq9-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 1.8rem 1.5rem;
+  background: #01130d;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  font-family: 'Montserrat', sans-serif;
+  color: #15171b;
+  overflow: hidden;
+}
+
+.phq9-background {
+  display: none;
+}
+
+/* Decorative pseudo-elements disabled to preserve solid background */
+
+
+.phq9-page {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  z-index: 1;
+  min-height: calc(100vh - 5rem);
+  display: flex;
+}
+
+.phq9-content {
+  display: grid;
+  grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: stretch;
+  width: 100%;
+}
+
+.phq9-side-panel {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 20px 38px rgba(10, 11, 14, 0.35);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.panel-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transform: scale(1.05);
+  filter: saturate(1.1) contrast(1.05);
+  z-index: -2;
+}
+
+.phq9-main {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-height: 0;
+}
+
+.phq9-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  background: #ffffffcc;
+  backdrop-filter: blur(10px);
+  border-radius: 18px;
+  padding: 1.4rem 1.6rem;
+  box-shadow: 0 14px 32px rgba(0, 76, 60, 0.08);
+  border: 1px solid rgba(46, 125, 50, 0.12);
+}
+
+.phq9-heading h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #22543d;
+  margin-bottom: 0.75rem;
+}
+
+.phq9-heading .intro-text {
+  color: #3a6350;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.progress-panel {
+  min-width: 160px;
+  background: linear-gradient(145deg, #2e7d32, #1b5e20);
+  border-radius: 14px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.25rem 1.5rem;
+  box-shadow: 0 12px 30px rgba(43, 122, 55, 0.3);
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.progress-count {
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin: 0.3rem 0;
+}
+
+.progress-subtext {
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.phq9-container {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.75rem 1.6rem;
+  box-shadow: 0 22px 40px rgba(0, 76, 60, 0.12);
+  border: 1px solid rgba(67, 160, 71, 0.15);
+  overflow: visible;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.4rem;
+}
+
+/* Make sure the form takes full width of container */
+.phq9-form {
+  width: 100%;
+}
+
+.question-card {
+  padding: 1.6rem 1.5rem;
+  background: linear-gradient(180deg, #ffffff 0%, #f6fbf6 100%);
+  border-radius: 18px;
+  border: 1px solid rgba(76, 175, 80, 0.18);
+  box-shadow: 0 18px 38px rgba(0, 76, 60, 0.08);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 22px 44px rgba(0, 76, 60, 0.1);
+}
+
+.question-text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: #22543d;
+  line-height: 1.5;
+  margin-bottom: 1.35rem;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.option-button {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(76, 175, 80, 0.25);
+  background: rgba(255, 255, 255, 0.92);
+  color: #1f4032;
+  font-size: 0.98rem;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.2s ease;
+  box-shadow: 0 10px 20px rgba(0, 76, 60, 0.05);
+}
+
+.option-button:hover:not(:disabled) {
+  border-color: #2e7d32;
+  box-shadow: 0 14px 28px rgba(0, 76, 60, 0.12);
+  transform: translateY(-2px);
+}
+
+.option-button.selected {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 18px 36px rgba(46, 125, 50, 0.35);
+}
+
+.option-indicator {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid rgba(76, 175, 80, 0.5);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #f6fbf7;
+  transition: all 0.2s ease;
+}
+
+.option-button.selected .option-indicator {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: transparent;
+}
+
+.option-button.selected .option-indicator::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #2e7d32;
+  display: block;
+}
+
+.option-label {
+  flex: 1;
+}
+
+.option-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.navigation-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.85rem;
+  margin-top: auto;
+}
+
+.nav-btn {
+  flex: 1;
+  padding: 0.85rem 1.1rem;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: 1px solid transparent;
+}
+
+.nav-btn.secondary {
+  background: #ffffff;
+  border-color: rgba(76, 175, 80, 0.25);
+  color: #2e7d32;
+  box-shadow: 0 12px 24px rgba(0, 76, 60, 0.08);
+}
+
+.nav-btn.secondary:hover:not(:disabled) {
+  border-color: #2e7d32;
+  box-shadow: 0 16px 30px rgba(0, 76, 60, 0.12);
+}
+
+.nav-btn.primary {
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #ffffff;
+  box-shadow: 0 18px 36px rgba(46, 125, 50, 0.25);
+}
+
+.nav-btn.primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px rgba(46, 125, 50, 0.35);
+}
+
+.nav-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.error-message {
+  margin-top: 0.6rem;
+  color: #c62828;
+  background: rgba(244, 67, 54, 0.08);
+  padding: 0.85rem 1rem;
+  border-radius: 10px;
+  border: 1px solid rgba(244, 67, 54, 0.2);
+  font-weight: 500;
+}
+
+.submit-btn {
+  width: 100%;
+  margin-top: 1.25rem;
+  padding: 0.9rem 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #2e7d32, #1b5e20);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 18px 36px rgba(46, 125, 50, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 48px rgba(46, 125, 50, 0.4);
+}
+
+.submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+.result-card {
+  text-align: center;
+  padding: 3rem 2.5rem;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 25px 50px rgba(0, 76, 60, 0.1);
+  border: 1px solid rgba(67, 160, 71, 0.22);
+}
+
+.result-card h2 {
+  font-size: 2rem;
+  color: #22543d;
+  margin-bottom: 1.25rem;
+}
+
+.result-card p {
+  color: #355e4b;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.result-card strong {
+  display: inline-block;
+  font-size: 2.25rem;
+  color: #2e7d32;
+  margin: 0.75rem 0;
+}
+
+.result-card.success {
+  background: linear-gradient(180deg, #ffffff 0%, #f0f9f1 100%);
+}
+
+@media (max-width: 900px) {
+  .phq9-wrapper {
+    padding: 2.5rem 1.25rem;
+  }
+
+  .phq9-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .progress-panel {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .progress-label {
+    font-size: 0.7rem;
+  }
+
+  .progress-count {
+    font-size: 1.4rem;
+  }
+
+  .progress-subtext {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .phq9-wrapper {
+    padding: 2rem 1rem;
+  }
+
+  .phq9-page {
+    gap: 1.5rem;
+  }
+
+  .phq9-container {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .question-card {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .navigation-controls {
+    flex-direction: column;
+  }
+
+  .nav-btn {
+    width: 100%;
+  }
+
+  .option-button {
+    padding: 0.85rem 1rem;
+  }
+}

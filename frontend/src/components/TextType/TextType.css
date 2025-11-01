@@ -1,0 +1,13 @@
+.text-type {
+  font-weight: bold;
+  border-right: 2px solid #333;
+  padding-right: 2px;
+  animation: blink 0.8s step-end infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+

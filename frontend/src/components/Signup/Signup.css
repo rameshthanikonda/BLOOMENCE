@@ -1,0 +1,204 @@
+/* UPDATED CSS for ./Signup.css */
+
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  /* REMOVED: background: #0d0d2b; and height: 100vh; from body
+     The background image and full-screen properties will be on .auth-container
+     to ensure correct image scaling. */
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Set min-height on body to ensure it spans the viewport if .auth-container is full-screen */
+  min-height: 100vh;
+}
+
+.auth-container {
+  /* ========================================================= */
+  /* 🟢 BACKGROUND IMAGE ADDED HERE */
+  /* Use a placeholder for the image path. Replace 'sign-up-background.jpg' 
+     with the actual path in your project (e.g., /assets/sign-up-background.jpg) */
+  background-image: url("../../assets/signup-image.jpg");
+  background-size: cover; /* Ensures the image covers the whole container */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from tiling */
+
+  /* Make the container fill the viewport */
+  min-height: 100vh;
+  width: 100vw;
+
+  /* Flexbox settings to center the login box */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px; /* Add some padding for smaller screens */
+  /* ========================================================= */
+}
+
+.auth-box {
+  /* Added a slightly darker, opaque background for better text readability over the image */
+  background: rgba(255, 255, 255, 0.95);
+  color: #111;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4); /* Slightly stronger shadow for contrast */
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.auth-box h2 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.auth-box p {
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  color: #444;
+}
+
+.social-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  background: #f5f5f5;
+  transform: scale(1.02); /* Adjusted zoom effect to be a bit more subtle */
+}
+
+.social-btn svg {
+  flex-shrink: 0;
+}
+
+.social-btn.google {
+  border-color: #4285f4;
+}
+
+.social-btn.microsoft {
+  border-color: #05a6f0;
+}
+
+.social-btn.apple {
+  border-color: #000;
+}
+
+.social-btn.email {
+  border-color: #666;
+}
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+}
+
+.auth-form label {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #222;
+}
+
+.auth-form input {
+  margin-top: 6px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+.password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input {
+  padding-right: 44px; /* space for icon */
+}
+
+.eye-icon {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #666;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  background: transparent;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.eye-icon:hover { background: #f3f4f6; color: #111; }
+.eye-icon:focus { outline: 2px solid #10b981; outline-offset: 2px; }
+
+.btn-primary {
+  background: #10b981; /* brand green */
+  color: #fff;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: #0ea371; /* darker brand green */
+  transform: scale(1.02);
+}
+
+.toggle-text {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  color: #111;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 4px;
+  text-decoration: underline;
+}
+
+.toggle-btn:hover {
+  color: #333;
+}
+
+.footer-links {
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+}
+
+.footer-links a {
+  color: #444;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}

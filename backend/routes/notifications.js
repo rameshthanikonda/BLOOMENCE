@@ -1,0 +1,113 @@
+const express = require('express');
+const router = express.Router();
+const { sendEmail } = require('../utils/mailer');
+const User = require('../models/User');
+
+router.post('/register', async (req, res) => {
+  try {
+    const { uid } = req.user; // from auth middleware
+    const { email, name } = req.body;
+    if (!email) return res.status(400).json({ message: 'email required' });
+
+    const existing = await User.findOne({ firebaseUid: uid });
+    if (existing) {
+      await User.updateOne({ firebaseUid: uid }, { $set: { email, name }, $setOnInsert: { registeredAt: new Date() } });
+      try {
+        const io = req.app.get('io');
+        if (io) io.to(uid).emit('notifications:registered', { email, name, existed: true });
+      } catch (_) { }
+      return res.json({ message: 'Profile updated' });
+    }
+
+    // New user -> create and send welcome once
+    await User.create({ firebaseUid: uid, email, name, registeredAt: new Date(), lastSeen: new Date() });
+
+    const html = `
+      <div style="font-family: Arial, sans-serif; background:#f7f9fc; padding:20px;">
+        <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e5e7eb;">
+          <div style="text-align:center;font-size:28px;">🌿 <span style="color:#10b981; font-weight:700;">Bloomence</span></div>
+          <h2 style="color:#111827;">Welcome, ${name || 'there'}!</h2>
+          <p style="color:#374151;">Thanks for joining Bloomence. We're here to help you track, reflect, and improve your wellbeing.</p>
+          <p style="color:#374151;">Get started by taking a quick check-in today.</p>
+          <div style="margin-top:16px;">
+            <a href="http://localhost:5173" style="background:#10b981;color:#ffffff;padding:10px 16px;border-radius:8px;text-decoration:none;">Open Bloomence</a>
+          </div>
+          <p style="color:#6b7280;margin-top:24px;">With care,<br/>Bloomence Team</p>
+        </div>
+      </div>`;
+
+    await sendEmail(email, 'Welcome to Bloomence', html);
+    try {
+      const io = req.app.get('io');
+      if (io) {
+        io.to(uid).emit('email:sent', { kind: 'register', to: email });
+        io.to(uid).emit('notifications:registered', { email, name, existed: false });
+      }
+    } catch (_) { }
+
+    res.json({ message: 'Welcome email sent' });
+  } catch (e) {
+    console.error('register email error', e);
+    res.status(500).json({ message: 'failed to process registration' });
+  }
+});
+
+router.post('/login', async (req, res) => {
+  try {
+    const { uid } = req.user;
+    const user = await User.findOneAndUpdate(
+      { firebaseUid: uid },
+      { $set: { lastSeen: new Date() } },
+      { new: true }
+    );
+    if (!user) return res.status(404).json({ message: 'user not found' });
+
+    // Policy: do NOT send login email for returning users
+    try {
+      const io = req.app.get('io');
+      if (io) io.to(uid).emit('auth:login', { when: Date.now() });
+    } catch (_) { }
+
+    res.json({ message: 'Login recorded' });
+  } catch (e) {
+    console.error('login error', e);
+    res.status(500).json({ message: 'failed to record login' });
+  }
+});
+
+// mark seen (frontend can call on app open)
+router.post('/seen', async (req, res) => {
+  try {
+    const { uid } = req.user;
+    await User.updateOne({ firebaseUid: uid }, { $set: { lastSeen: new Date() } });
+    res.json({ message: 'Seen recorded' });
+  } catch (e) {
+    console.error('seen error', e);
+    res.status(500).json({ message: 'failed to record seen' });
+  }
+});
+
+// Diagnostic: send a test email directly using the authenticated user, bypassing DB lookups
+router.post('/test', async (req, res) => {
+  try {
+    const { to, subject, html, text } = req.body || {};
+    if (!to) return res.status(400).json({ message: 'to is required' });
+
+    const safeSubject = subject || 'Bloomence test email';
+    const safeHtml = html || '<b>Hello from Bloomence /api/notifications/test</b>';
+    const info = await sendEmail(to, safeSubject, safeHtml, text);
+
+    // Realtime notify
+    try {
+      const io = req.app.get('io');
+      if (io) io.to(req.user.uid).emit('email:sent', { kind: 'test', to });
+    } catch (_) { }
+
+    res.json({ message: 'Test email sent', id: info && (info.messageId || undefined) });
+  } catch (e) {
+    console.error('test email error', e);
+    res.status(500).json({ message: 'failed to send test email' });
+  }
+});
+
+module.exports = router;

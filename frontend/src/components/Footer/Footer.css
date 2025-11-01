@@ -1,0 +1,79 @@
+/* frontend/src/components/Footer/Footer.css (ULTRA-COMPACT STYLING) */
+
+.main-footer-container {
+    background-color: #051519; /* Match body background */
+    border-top: 1px solid #1c2b3a; /* Subtle separation line */
+    padding: 2rem 5%; /* Reduced padding for compact size */
+    color: #f0f8ff;
+    font-family: 'Montserrat', sans-serif;
+    width: 100%;
+    
+    /* 🟢 CRITICAL FIX: Ensure vertical clearance */
+    /* Add padding/margin to guarantee space after the scroller, which is 180px tall */
+    margin-top: 5rem; 
+}
+
+.footer-compact-content {
+    display: flex;
+    /* Aligns everything vertically and pushes brand/links to opposite sides */
+    justify-content: space-between; 
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* --- Brand Info --- */
+.footer-brand-title {
+    font-size: 1.2rem; /* Reduced size */
+    font-weight: 700;
+    color: #00d9a5; /* Accent color */
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.footer-copyright {
+    font-size: 0.8rem; /* Small font size */
+    color: #a0a8b4;
+    margin: 0;
+}
+
+/* --- Links Group --- */
+.footer-links-group {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Spacing between links */
+}
+
+.footer-link-item {
+    font-size: 0.85rem;
+    color: #a0a8b4;
+    text-decoration: none;
+    transition: color 0.3s;
+    white-space: nowrap; /* Prevents links from breaking */
+}
+
+.footer-link-item:hover {
+    color: #00d9a5;
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .main-footer-container {
+        padding: 1.5rem 3%;
+    }
+    .footer-compact-content {
+        flex-direction: column; /* Stack vertically on small screens */
+        gap: 15px;
+        text-align: center;
+    }
+    .footer-brand-info {
+        order: 2; /* Puts brand info at the bottom */
+    }
+    .footer-links-group {
+        order: 1; /* Puts links at the top */
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 15px;
+    }
+}
