@@ -32,6 +32,8 @@ const TARGET_ICONS = {
   selfEsteem: Sparkles,
 };
 
+// Backend API base
+const API_BASE = import.meta.env.VITE_API_URL || 'https://bloomence-mss1.onrender.com';
 
 // --- PHQ-9 LEGEND DATA (Unchanged) ---
 const phq9Legend = [
@@ -233,7 +235,7 @@ export default function Dashboard() {
     const fetchDashboardData = async () => {
       setDataLoading(true);
       try {
-        const doFetch = async (token) => fetch('http://localhost:3001/api/results/dashboard', {
+        const doFetch = async (token) => fetch(`${API_BASE}/api/results/dashboard`, {
           method: 'GET',
           headers: {
             'Accept': 'application/json',

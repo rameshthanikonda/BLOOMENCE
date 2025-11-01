@@ -8,8 +8,9 @@ import { Home } from 'lucide-react';
 import './AIRecommendation.css';
 
 // --- CONSTANTS ---
-const BOT_API_URL = 'http://localhost:3001/api/gemini/chat';
-const BOT_STREAM_URL = 'http://localhost:3001/api/gemini/chat-stream';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://bloomence-mss1.onrender.com';
+const BOT_API_URL = `${API_BASE}/api/gemini/chat`;
+const BOT_STREAM_URL = `${API_BASE}/api/gemini/chat-stream`;
 const ACCENT_COLOR = '#00d9a5';
 
 // --- HELPER FUNCTION: Generates YouTube Thumbnail URL ---

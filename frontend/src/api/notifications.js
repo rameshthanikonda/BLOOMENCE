@@ -1,7 +1,7 @@
 // frontend/src/api/notifications.js
 import { getAuth } from 'firebase/auth';
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+const BASE_URL = import.meta.env.VITE_API_URL || 'https://bloomence-mss1.onrender.com';
 
 export async function registerEmail(name, email) {
   const token = await getAuth().currentUser.getIdToken();

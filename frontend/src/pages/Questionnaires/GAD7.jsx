@@ -35,6 +35,9 @@ export default function GAD7() {
   const [error, setError] = useState(null);
   const [direction, setDirection] = useState(1);
 
+  // Backend API base
+  const API_BASE = import.meta.env.VITE_API_URL || 'https://bloomence-mss1.onrender.com';
+
   const handleAnswer = (value) => {
     const updatedAnswers = [...answers];
     updatedAnswers[currentQ] =
@@ -76,7 +79,7 @@ export default function GAD7() {
       const userEmail = currentUser.email;
 
       const submitOnce = async (token) => {
-        const res = await fetch('http://localhost:3001/api/results/save', {
+        const res = await fetch(`${API_BASE}/api/results/save`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

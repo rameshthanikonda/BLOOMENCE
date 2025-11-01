@@ -38,6 +38,9 @@ export default function PHQ9() {
   const [error, setError] = useState(null);
   const [direction, setDirection] = useState(1);
 
+  // Backend API base
+  const API_BASE = import.meta.env.VITE_API_URL || 'https://bloomence-mss1.onrender.com';
+
   // --- Handle Option Selection / Deselection ---
   const handleAnswer = (value) => {
     const updatedAnswers = [...answers];
@@ -86,7 +89,7 @@ export default function PHQ9() {
       const userEmail = currentUser.email;
 
       const submitOnce = async (token) => {
-        const res = await fetch("http://localhost:3001/api/results/save", {
+        const res = await fetch(`${API_BASE}/api/results/save`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
