@@ -1,7 +1,11 @@
 
 
 # 🌿 **BLOOMENCE: Personalized Digital Wellness Assistant 🧠**
+<<<<<<< HEAD
 **Live Demo:** [https://bloomenceee.onrender.com](https://bloomence-2.onrender.com/)
+=======
+**Live Demo:** [https://bloomence-2.onrender.com/](https://bloomence-2.onrender.com/)
+>>>>>>> 7e01dfe (second  commit)
 
 ---
 
@@ -77,7 +81,7 @@ The app uses a **secure hybrid architecture** combining:
 ## 🛠️ **Tech Stack & Architecture**
 
 **Frontend:** React, Vite, Firebase, Recharts, Framer Motion, OGL, lucide‑react (icons)  
-**Backend:** Node.js, Express.js, MongoDB, Firebase Admin SDK, Gemini API, Socket.IO (installed)  
+**Backend:** Node.js, Express.js, MongoDB, Firebase Admin SDK, Gemini API, Socket.IO (installed), Nodemailer  
 **Hosting:** Render  
 **Authentication:** Firebase (Email + Google)
 
@@ -117,6 +121,13 @@ MONGO_URI="your_mongodb_connection_string"
 FIREBASE_PRIVATE_KEY="your_firebase_private_key"
 GEMINI_API_KEY="your_gemini_api_key"
 
+# Optional: SMTP config for email (Nodemailer)
+SMTP_HOST=smtp.yourprovider.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER="your_smtp_username"
+SMTP_PASS="your_smtp_password"
+FROM_EMAIL="Bloomence <no-reply@yourdomain.com>"
 ```
 ### 4️⃣ Start the backend server
 ```bash
