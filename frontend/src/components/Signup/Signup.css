@@ -48,6 +48,32 @@ body {
   text-align: center;
 }
 
+/* =====================
+   Responsive Tweaks
+   ===================== */
+@media (max-width: 768px) {
+  .auth-container { padding: 16px; }
+  .auth-box { max-width: 420px; padding: 1.5rem; }
+  .social-btn { padding: 12px; font-size: 0.95rem; }
+}
+
+@media (max-width: 480px) {
+  .auth-container { padding: 12px; }
+  .auth-box { max-width: 94vw; padding: 1.25rem; border-radius: 14px; }
+  .auth-box h2 { font-size: 1.25rem; }
+  .auth-box p { font-size: 0.85rem; }
+  .social-btn { gap: 10px; padding: 11px; border-radius: 10px; }
+  .auth-form input { padding: 10px; font-size: 0.95rem; }
+  .btn-primary { padding: 12px; font-size: 0.95rem; }
+}
+
+@media (max-width: 360px) {
+  .auth-box { padding: 1rem; }
+  .social-btn { padding: 10px; font-size: 0.9rem; }
+  .auth-form label { font-size: 0.85rem; }
+  .footer-links { font-size: 0.75rem; }
+}
+
 .auth-box h2 {
   margin-bottom: 0.5rem;
   font-size: 1.5rem;

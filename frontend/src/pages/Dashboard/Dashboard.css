@@ -518,3 +518,25 @@
       max-width: 350px; 
   }
 }
+
+/* Extra tiny screens (<= 380px) */
+@media (max-width: 380px) {
+  .dashboard-container { padding: 1.5rem 0.75rem; }
+  .dashboard-container h1 { font-size: 1.8rem; margin-bottom: 1.5rem; }
+
+  .metrics-row { gap: 10px; }
+  .metric-card { padding: 1rem; min-width: 140px; }
+  .metric-title { font-size: 0.8rem; }
+  .metric-score { font-size: 1.5rem; }
+
+  .legend-box-card { padding: 1rem; }
+  .legend-box-card h4 { font-size: 1.2rem; }
+  .legend-item { font-size: 0.95rem; }
+
+  .chart-card { padding: 1rem; }
+  .pie-chart-card { min-width: 0; }
+
+  .wellness-target-section { padding: 1rem; }
+  .wellness-target-card { max-width: 100%; }
+  .target-percentage { font-size: 1.25rem; }
+}

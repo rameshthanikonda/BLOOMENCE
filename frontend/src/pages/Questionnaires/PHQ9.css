@@ -19,6 +19,18 @@
   overflow: hidden;
 }
 
+/* Extra tiny screens (<= 380px) */
+@media (max-width: 380px) {
+  .phq9-header { padding: 1.1rem 1.1rem; }
+  .phq9-heading h1 { font-size: 1.5rem; }
+  .phq9-container { padding: 1.4rem 1.2rem; }
+  .question-card { padding: 1.2rem 1rem; }
+  .question-text { font-size: 0.98rem; }
+  .option-button { padding: 0.75rem 0.9rem; font-size: 0.95rem; }
+  .progress-panel { padding: 0.9rem 1rem; }
+  .progress-count { font-size: 1.2rem; }
+}
+
 .phq9-background {
   display: none;
 }

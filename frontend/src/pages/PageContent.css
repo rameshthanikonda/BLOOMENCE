@@ -18,6 +18,19 @@
     flex-grow: 1; /* Pushes the footer to the bottom */
 }
 
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .page-main-content { padding: 100px 6% 40px 6%; }
+  .page-main-content h1 { font-size: 2rem; }
+  .subtitle { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+  .page-main-content { padding: 90px 7% 36px 7%; }
+  .page-main-content h1 { font-size: 1.75rem; }
+  .subtitle { font-size: 0.95rem; }
+}
+
 .page-main-content h1 {
     font-size: 2.5rem;
     font-weight: 700;
