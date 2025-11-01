@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Home } from 'lucide-react';
 import "./Questionnaires.css";
 
 export default function Questionnaires() {
@@ -7,7 +8,12 @@ export default function Questionnaires() {
 
   return (
     <div className="questionnaires-container">
-      <button className="home-btn" onClick={() => navigate('/')}>Home</button>
+      <div className="qn-header">
+        <button className="home-inline" onClick={() => navigate('/')} aria-label="Go to Home">
+          <Home size={20} className="home-icon" />
+          <span>Go to Home</span>
+        </button>
+      </div>
       <h1>Select a Questionnaire</h1>
       <div className="cards">
         <div className="card" onClick={() => navigate("/phq9")}>
