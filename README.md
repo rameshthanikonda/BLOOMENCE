@@ -1,7 +1,7 @@
 
 
 # 🌿 **BLOOMENCE: Personalized Digital Wellness Assistant 🧠**
-**Live Demo:** [https://bloomenceee.onrender.com](https://bloomenceee.onrender.com)
+**Live Demo:** [https://bloomenceee.onrender.com](https://bloomence-2.onrender.com/)
 
 ---
 
