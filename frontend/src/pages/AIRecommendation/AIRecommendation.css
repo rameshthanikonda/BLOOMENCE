@@ -654,3 +654,107 @@
   .crisis-btn { right: 12px; bottom: 12px; }
   .crisis-panel { right: 12px; bottom: 64px; width: 92vw; max-width: 320px; }
 }
+
+/* =========================================
+   Minimal, clean UI for Self‑Help Tools
+   (below BloomBot AI). CSS-only overrides.
+   ========================================= */
+
+.self-help-section {
+  margin-top: 2.5rem;
+}
+
+/* Cards: softer background, lighter borders, subtle shadow */
+.self-help-section .tool-card {
+  background: #162332; /* slightly calmer than #1c2b3a */
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+/* Titles simplified */
+.self-help-section .tool-title {
+  color: #e8f0f7;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+/* Inputs and textareas unified */
+.self-help-section input,
+.self-help-section textarea,
+.self-help-section select {
+  background: #0f1a25;
+  border: 1px solid rgba(255,255,255,0.08);
+  color: #e8f0f7;
+  border-radius: 10px;
+}
+
+/* Primary action buttons: calm accent, consistent sizing */
+.self-help-section .primary,
+.self-help-section .btn-primary,
+.self-help-section .show-more-btn {
+  background: #00c29a;
+  color: #0d1a26;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+}
+.self-help-section .primary:hover,
+.self-help-section .btn-primary:hover,
+.self-help-section .show-more-btn:hover {
+  background: #00b28e;
+}
+
+/* Secondary chips/toggles toned down */
+.self-help-section .med-item,
+.self-help-section .chip,
+.self-help-section .tag-chip,
+.self-help-section .rate {
+  background: #122130;
+  color: #cfe9ff;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+.self-help-section .med-item.active,
+.self-help-section .tag-chip.on,
+.self-help-section .rate.on {
+  background: #00c29a;
+  color: #0d1a26;
+  border-color: #00c29a;
+}
+
+/* Lists and stacks spacing */
+.self-help-section .tool-stack { gap: 16px; }
+.self-help-section .mood-list,
+.self-help-section .cbt-list { max-height: 220px; }
+
+/* Video and media cards: reduce contrast for minimal look */
+.self-help-section .sound-item,
+.self-help-section .cbt-entry,
+.self-help-section .affirm-box,
+.self-help-section .mood-row {
+  background: #132538;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Category tags and meta badges */
+.self-help-section .video-category-tag,
+.self-help-section .article-type,
+.self-help-section .article-category {
+  background: rgba(255,255,255,0.06);
+  color: #b8c7d6;
+}
+
+/* Buttons within breathing tool */
+.self-help-section .breath-controls .primary { padding: 8px 14px; }
+
+/* Grid gap tuned for clarity */
+.self-help-section .tools-grid { gap: 16px; }
+
+/* Responsive tightening for phones */
+@media (max-width: 600px) {
+  .self-help-section .tools-grid { grid-template-columns: 1fr; }
+  .self-help-section .tool-card { padding: 14px; }
+}
