@@ -158,6 +158,7 @@ export default function GAD7() {
       <div className="phq9-wrapper">
         <div className="phq9-background" aria-hidden="true"></div>
         <div className="phq9-page">
+          <button className="home-btn" onClick={() => navigate('/')}>Home</button>
           <div className="phq9-content">
             <aside className="phq9-side-panel">
               <img
@@ -191,6 +192,7 @@ export default function GAD7() {
     <div className="phq9-wrapper">
       <div className="phq9-background" aria-hidden="true"></div>
       <div className="phq9-page">
+        <button className="home-btn" onClick={() => navigate('/')}>Home</button>
         <div className="phq9-content">
           <aside className="phq9-side-panel">
             <img

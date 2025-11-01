@@ -47,6 +47,27 @@
   display: flex;
 }
 
+/* Top-right Home button (shared by PHQ-9 and GAD-7) */
+.home-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: #0f172a;
+  color: #e2e8f0;
+  border: 1px solid rgba(148,163,184,0.35);
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+}
+.home-btn:hover {
+  background: #111827;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+  transform: translateY(-1px);
+}
+.home-btn:active { transform: translateY(0); }
+
 .phq9-content {
   display: grid;
   grid-template-columns: minmax(320px, 380px) minmax(0, 1fr);

@@ -7,6 +7,7 @@ export default function Questionnaires() {
 
   return (
     <div className="questionnaires-container">
+      <button className="home-btn" onClick={() => navigate('/')}>Home</button>
       <h1>Select a Questionnaire</h1>
       <div className="cards">
         <div className="card" onClick={() => navigate("/phq9")}>
