@@ -537,32 +537,7 @@ function RewardsCard() {
     );
 }
 
-function SoundboardCard() {
-    const SOUNDS = [
-        {name:'Rain', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'},
-        {name:'Forest', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3'},
-        {name:'Waves', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3'},
-        {name:'White Noise', src:'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3'},
-    ];
-    const [playing, setPlaying] = useUserStorage('sound.playing', null);
-    return (
-        <Card title="Soothing Soundboard">
-            <div className="sound-grid">
-                {SOUNDS.map(s => (
-                    <div key={s.name} className={`sound-item ${playing===s.name?'on':''}`}>
-                        <div className="sound-name">{s.name}</div>
-                        <audio id={`aud-${s.name}`} src={s.src} />
-                        {playing===s.name ? (
-                            <button onClick={()=>{ const a=document.getElementById(`aud-${s.name}`); a.pause(); setPlaying(null); }}>Pause</button>
-                        ) : (
-                            <button onClick={()=>{ document.querySelectorAll('.sound-item audio').forEach(a=>a.pause()); const a=document.getElementById(`aud-${s.name}`); a.volume=0.7; a.play(); setPlaying(s.name); }}>Play</button>
-                        )}
-                    </div>
-                ))}
-            </div>
-        </Card>
-    );
-}
+/* SoundboardCard removed per request */
 
 function DailySuggestionCard() {
     const IDEAS = [
@@ -1039,7 +1014,6 @@ export default function AiRecommendation() {
                         <RewardsCard />
                         <DailySuggestionCard />
                     </div>
-                    <SoundboardCard />
                     <CBTReframeCard />
                 </div>
             </section>
