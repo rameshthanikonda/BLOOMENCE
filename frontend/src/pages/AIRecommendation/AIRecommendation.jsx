@@ -334,7 +334,10 @@ function ChatInputBox({ onSubmit, isLoading, currentUser, lastResponse }) {
                     aria-pressed={recognizing}
                     aria-label="Toggle voice input"
                 >
-                    {recognizing ? '🎙️' : '🎤'}
+                    {/* mic SVG icon */}
+                    <svg class="ai-mic-icon" viewBox="0 0 24 24" fill="#c7d2fe" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3Zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V20H9v2h6v-2h-2v-2.08A7 7 0 0 0 19 11h-2Z"/>
+                    </svg>
                 </button>
                 <button type="submit" disabled={isLoading || !currentUser} className="ai-send-btn">
                     {isLoading ? '...' : '→'}
