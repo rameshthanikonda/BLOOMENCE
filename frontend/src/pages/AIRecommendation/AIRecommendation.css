@@ -777,7 +777,9 @@
 .self-help-section .cbt-card .cbt-head { margin-bottom: 6px; }
 
 /* --- Self-Help Tabbed Pills --- */
-.tool-tabbed .tool-tabs { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:10px; }
+.tool-tabbed .tool-tabs { display:flex; gap:12px; flex-wrap:nowrap; margin-bottom:10px; overflow-x:auto; }
+.tools-grid .tool-tabbed { grid-column: 1 / -1; }
+.tool-tabbed .tool-tabs { justify-content: flex-start; }
 .tool-tab {
   padding: 10px 16px;
   border-radius: 9999px;
@@ -792,6 +794,10 @@
 .tool-tab:active { transform: translateY(0); }
 .tool-tab.active { background:#0b2a22; border-color:#00d9a5; box-shadow: inset 0 0 0 1px #00d9a5, 0 10px 24px rgba(0,217,165,0.18); color:#ccfff0; }
 .tool-tab-panels { margin-top: 6px; }
+
+@media (max-width: 700px) {
+  .tool-tabbed .tool-tabs { flex-wrap: wrap; }
+}
 
 /* Mobile: single column and comfortable padding */
 @media (max-width: 600px) {
