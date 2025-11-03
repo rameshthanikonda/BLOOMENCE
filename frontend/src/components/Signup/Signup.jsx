@@ -1,10 +1,12 @@
 // src/pages/Signup/Signup.jsx 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"; // 🟢 CRITICAL: Import useNavigate
 import "./Signup.css";
 import { auth, googleProvider, microsoftProvider, appleProvider } from "../../firebaseConfig";// NOTE: Path assumption
 import { registerEmail, login as notifyLogin } from "../../api/notifications";
 import { useToast } from "../Toast/ToastProvider";
+import { signInWithRedirect } from "firebase/auth";
+import { useAuth } from "../../context/AuthContext";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -64,6 +66,7 @@ const LockIcon = ({ open }) => (
 export default function SignupLogin() {
   const navigate = useNavigate(); // CRITICAL: Initialize useNavigate
   const toast = useToast();
+  const { currentUser } = useAuth();
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -74,6 +77,13 @@ export default function SignupLogin() {
     password: "",
     confirmPassword: "",
   });
+
+  // If already authenticated (e.g., redirect flow), go inside
+  useEffect(() => {
+    if (currentUser) {
+      setTimeout(() => navigate('/dashboard'), 150);
+    }
+  }, [currentUser, navigate]);
 
   const handleChange = (e) =>
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -98,8 +108,8 @@ export default function SignupLogin() {
         toast.show('Account created successfully', 'success');
       }
 
-      // Navigate to dashboard after successful auth
-      navigate('/dashboard'); 
+      // Defer navigation slightly to allow AuthContext to update
+      setTimeout(() => navigate('/dashboard'), 250);
 
     } catch (error) {
       toast.show(error.message || 'Authentication failed', 'error');
@@ -127,8 +137,8 @@ export default function SignupLogin() {
       try { await notifyLogin(); } catch (e) { console.error('notify login (social) failed', e); }
       document.cookie = 'bloomence_session=true; path=/; max-age=2592000';
       toast.show('Successfully logged in with ' + providerName, 'success');
-      // Navigate on success for all social logins
-      navigate('/dashboard'); 
+      // Defer navigation slightly to allow AuthContext to update
+      setTimeout(() => navigate('/dashboard'), 250);
 
     } catch (error) {
       // Handle common popup issues gracefully
@@ -136,6 +146,14 @@ export default function SignupLogin() {
         toast.show('Popup closed before completing sign-in. Please try again.', 'info');
       } else if (error && error.code === 'auth/unauthorized-domain') {
         toast.show('This domain is not authorized in Firebase Auth settings.', 'error');
+      } else if (error && (error.code === 'auth/popup-blocked' || error.code === 'auth/cancelled-popup-request')) {
+        // Fallback to redirect flow
+        try {
+          await signInWithRedirect(auth, provider);
+          toast.show('Continuing sign-in, please complete in the opened tab...', 'info');
+        } catch (e) {
+          toast.show(e.message || 'Redirect sign-in failed', 'error');
+        }
       } else {
         toast.show(error.message || 'Social login failed', 'error');
       }
