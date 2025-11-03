@@ -22,21 +22,22 @@ router.post('/register', async (req, res) => {
     // New user -> create and send welcome once
     await User.create({ firebaseUid: uid, email, name, registeredAt: new Date(), lastSeen: new Date() });
 
+    const appUrl = process.env.APP_URL || 'http://localhost:5173';
     const html = `
       <div style="font-family: Arial, sans-serif; background:#f7f9fc; padding:20px;">
         <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e5e7eb;">
           <div style="text-align:center;font-size:28px;">🌿 <span style="color:#10b981; font-weight:700;">Bloomence</span></div>
           <h2 style="color:#111827;">Welcome, ${name || 'there'}!</h2>
-          <p style="color:#374151;">Thanks for joining Bloomence. We're here to help you track, reflect, and improve your wellbeing.</p>
-          <p style="color:#374151;">Get started by taking a quick check-in today.</p>
+          <p style="color:#374151;">You're all set — your account was created successfully.</p>
+          <p style="color:#374151;">Start your journey with Bloomence by taking a quick check-in.</p>
           <div style="margin-top:16px;">
-            <a href="http://localhost:5173" style="background:#10b981;color:#ffffff;padding:10px 16px;border-radius:8px;text-decoration:none;">Open Bloomence</a>
+            <a href="${appUrl}" style="background:#10b981;color:#ffffff;padding:10px 16px;border-radius:8px;text-decoration:none;">Start your journey</a>
           </div>
           <p style="color:#6b7280;margin-top:24px;">With care,<br/>Bloomence Team</p>
         </div>
       </div>`;
 
-    await sendEmail(email, 'Welcome to Bloomence', html);
+    await sendEmail(email, 'Welcome — Start your journey with Bloomence', html);
     try {
       const io = req.app.get('io');
       if (io) {
@@ -62,7 +63,26 @@ router.post('/login', async (req, res) => {
     );
     if (!user) return res.status(404).json({ message: 'user not found' });
 
-    // Policy: do NOT send login email for returning users
+    // First-login success email (send once if enabled)
+    if (user.emailPrefs?.loginEmails !== false && !user.firstLoginEmailedAt) {
+      try {
+        const appUrl = process.env.APP_URL || 'http://localhost:5173';
+        const html = `
+          <div style="font-family: Arial, sans-serif; background:#f7f9fc; padding:20px;">
+            <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e5e7eb;">
+              <div style="text-align:center;font-size:28px;">🌿 <span style="color:#10b981; font-weight:700;">Bloomence</span></div>
+              <h2 style="color:#111827;">You successfully logged in, ${user.name || 'there'}!</h2>
+              <p style="color:#374151;">Welcome aboard. Keep your streak going with a quick check-in.</p>
+              <div style="margin-top:16px;">
+                <a href="${appUrl}" style="background:#10b981;color:#ffffff;padding:10px 16px;border-radius:8px;text-decoration:none;">Open Bloomence</a>
+              </div>
+              <p style="color:#6b7280;margin-top:24px;">With care,<br/>Bloomence Team</p>
+            </div>
+          </div>`;
+        await sendEmail(user.email, 'Login successful — Welcome to Bloomence', html);
+        await User.updateOne({ firebaseUid: uid }, { $set: { firstLoginEmailedAt: new Date() } });
+      } catch (_) { }
+    }
     try {
       const io = req.app.get('io');
       if (io) io.to(uid).emit('auth:login', { when: Date.now() });

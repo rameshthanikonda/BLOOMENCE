@@ -6,6 +6,9 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, default: 'User' },
   registeredAt: { type: Date, default: Date.now },
   lastSeen: { type: Date, default: Date.now },
+  firstLoginEmailedAt: { type: Date },
+  combinedScoresEmailedAt: { type: Date },
+  lastReengagementSentAt: { type: Date },
   emailPrefs: {
     weeklyDigest: { type: Boolean, default: true },
     loginEmails: { type: Boolean, default: true },

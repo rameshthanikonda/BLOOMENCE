@@ -5,9 +5,9 @@ const { sendEmail } = require('../utils/mailer');
 
 const CRON = process.env.WEEKLY_CRON || '0 9 * * 1'; // 09:00 every Monday
 const TZ = process.env.TZ || 'UTC';
-const INACTIVITY_CRON = process.env.INACTIVITY_CRON || '0 10 * * *'; // daily 10:00
+const INACTIVITY_CRON = process.env.INACTIVITY_CRON || '0 10 */2 * *'; // every 2 days 10:00
 const HIGH_FOLLOWUP_CRON = process.env.HIGH_FOLLOWUP_CRON || '0 11 * * *'; // daily 11:00
-const INACTIVITY_DAYS = parseInt(process.env.INACTIVITY_DAYS || '7', 10);
+const INACTIVITY_DAYS = parseInt(process.env.INACTIVITY_DAYS || '2', 10);
 const PHQ9_HIGH = parseInt(process.env.PHQ9_HIGH || '15', 10);
 const GAD7_HIGH = parseInt(process.env.GAD7_HIGH || '15', 10);
 
@@ -70,19 +70,24 @@ function startInactivityReminders() {
   cron.schedule(INACTIVITY_CRON, async () => {
     try {
       const cutoff = new Date(Date.now() - INACTIVITY_DAYS * 24 * 60 * 60 * 1000);
-      const users = await User.find({ 'emailPrefs.weeklyDigest': { $ne: false } }).lean();
+      const throttleCutoff = cutoff; // send at most once per INACTIVITY_DAYS
+      const users = await User.find({ 'emailPrefs.reengagementEmails': { $ne: false } }).lean();
       for (const u of users) {
         try {
-          const last = await getLatestResult(u.firebaseUid);
-          if (!last || new Date(last.createdAt) < cutoff) {
+          const lastSeen = u.lastSeen || u.updatedAt || u.createdAt || new Date(0);
+          const lastReengaged = u.lastReengagementSentAt ? new Date(u.lastReengagementSentAt) : new Date(0);
+          const shouldSend = new Date(lastSeen) < cutoff && lastReengaged < throttleCutoff;
+          if (shouldSend) {
+            const appUrl = process.env.APP_URL || 'http://localhost:5173';
             const html = `<div style="font-family:Arial,sans-serif">
-              <h3>A gentle reminder</h3>
+              <h3>We miss you at Bloomence</h3>
               <p>Hi ${u.name || 'there'},</p>
-              <p>We haven't seen a check-in from you in a while. A quick assessment can help you track how you're doing.</p>
-              <p><a href="http://localhost:5173">Open Bloomence</a> to take a 2-minute check-in.</p>
+              <p>It's been a bit since your last visit. Take a quick 2-minute check-in to see how you're doing today.</p>
+              <p><a href="${appUrl}">Open Bloomence</a> to continue your journey.</p>
               <p>With care,<br/>Bloomence Team</p>
             </div>`;
-            await sendEmail(u.email, 'We miss you — quick check-in?', html);
+            await sendEmail(u.email, 'It’s been a while — quick check-in?', html);
+            await User.updateOne({ firebaseUid: u.firebaseUid }, { $set: { lastReengagementSentAt: new Date() } });
           }
         } catch (e) {
           console.error('inactivity reminder error for user', u.firebaseUid, e);

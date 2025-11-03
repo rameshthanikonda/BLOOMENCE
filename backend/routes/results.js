@@ -90,6 +90,55 @@ router.post('/save', async (req, res) => {
                     }
                 } catch (_) { }
             }
+
+            // Send combined PHQ/GAD email once both are available and newer than last sent
+            try {
+                const latestPHQ = await Result.findOne({ firebaseUid, questionnaireType: 'PHQ-9' }).sort({ createdAt: -1 }).lean();
+                const latestGAD = await Result.findOne({ firebaseUid, questionnaireType: 'GAD-7' }).sort({ createdAt: -1 }).lean();
+                if (latestPHQ && latestGAD) {
+                    const latestBothAt = new Date(Math.max(new Date(latestPHQ.createdAt).getTime(), new Date(latestGAD.createdAt).getTime()));
+                    const alreadySentAt = user.combinedScoresEmailedAt ? new Date(user.combinedScoresEmailedAt) : null;
+                    if (!alreadySentAt || latestBothAt > alreadySentAt) {
+                        const appUrl = process.env.APP_URL || 'http://localhost:5173';
+                        const phqIcon = latestPHQ.totalScore >= 15 ? '🌧️' : latestPHQ.totalScore >= 10 ? '🌥️' : '🌤️';
+                        const gadIcon = latestGAD.totalScore >= 15 ? '🌧️' : latestGAD.totalScore >= 10 ? '🌥️' : '🌤️';
+                        const htmlCombined = `
+                          <div style="font-family: Arial, sans-serif; background:#f7f9fc; padding:20px;">
+                            <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:12px;padding:24px;border:1px solid #e5e7eb;">
+                              <div style="text-align:center;font-size:28px;">🌿 <span style="color:#10b981; font-weight:700;">Bloomence</span></div>
+                              <h2 style="color:#111827;">Your recent wellbeing check-in</h2>
+                              <p style="color:#374151;">Hi ${user.name || 'there'}, here are your latest scores:</p>
+                              <div style="display:flex;gap:12px;align-items:center;margin:12px 0;">
+                                <div style="flex:1;border:1px solid #e5e7eb;border-radius:10px;padding:12px;">
+                                  <div style="font-weight:600;color:#111827;">PHQ‑9</div>
+                                  <div style="font-size:24px;">${phqIcon} <b>${latestPHQ.totalScore}</b></div>
+                                </div>
+                                <div style="flex:1;border:1px solid #e5e7eb;border-radius:10px;padding:12px;">
+                                  <div style="font-weight:600;color:#111827;">GAD‑7</div>
+                                  <div style="font-size:24px;">${gadIcon} <b>${latestGAD.totalScore}</b></div>
+                                </div>
+                              </div>
+                              <p style="color:#6b7280;">These results are informational and not a diagnosis.</p>
+                              <div style="margin-top:16px;">
+                                <a href="${appUrl}" style="background:#10b981;color:#ffffff;padding:10px 16px;border-radius:8px;text-decoration:none;">Open Bloomence</a>
+                              </div>
+                              <p style="color:#6b7280;margin-top:24px;">With care,<br/>Bloomence Team</p>
+                            </div>
+                          </div>`;
+                        await sendEmail(user.email || userEmail, 'Your PHQ‑9 and GAD‑7 summary', htmlCombined);
+                        await User.updateOne(
+                          { firebaseUid },
+                          { $set: { combinedScoresEmailedAt: latestBothAt } }
+                        );
+                        try {
+                          const io = req.app.get('io');
+                          if (io) io.to(firebaseUid).emit('email:sent', { kind: 'combinedResults', to: user.email || userEmail });
+                        } catch (_) { }
+                    }
+                }
+            } catch (e) {
+                console.error('combined results email error', e);
+            }
         } catch (e) {
             console.error('high-score email error', e);
         }
