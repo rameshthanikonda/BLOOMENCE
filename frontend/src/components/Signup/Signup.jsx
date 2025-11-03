@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom"; // 🟢 CRITICAL: Import useNavi
 import "./Signup.css";
 import { auth, googleProvider, microsoftProvider, appleProvider } from "../../firebaseConfig";// NOTE: Path assumption
 import { registerEmail, login as notifyLogin } from "../../api/notifications";
+import { useToast } from "../Toast/ToastProvider";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -62,6 +63,7 @@ const LockIcon = ({ open }) => (
 
 export default function SignupLogin() {
   const navigate = useNavigate(); // CRITICAL: Initialize useNavigate
+  const toast = useToast();
   const [showEmailForm, setShowEmailForm] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
   const [passwordVisible, setPasswordVisible] = useState(false);
@@ -82,23 +84,25 @@ export default function SignupLogin() {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, form.email, form.password);
         try { await notifyLogin(); } catch (e) { console.error('notify login failed', e); }
-        alert("Logged in successfully!");
+        document.cookie = 'bloomence_session=true; path=/; max-age=2592000';
+        toast.show('Successfully logged in', 'success');
       } else {
         if (form.password !== form.confirmPassword) {
-          alert("Passwords do not match!");
+          toast.show('Passwords do not match', 'error');
           return;
         }
         await createUserWithEmailAndPassword(auth, form.email, form.password);
         try { await registerEmail(form.name || 'User', form.email); } catch (e) { console.error('registerEmail failed', e); }
         try { await notifyLogin(); } catch (e) { console.error('notify login failed', e); }
-        alert("Signed up successfully!");
+        document.cookie = 'bloomence_session=true; path=/; max-age=2592000';
+        toast.show('Account created successfully', 'success');
       }
 
-      // ACTION: Navigate to home after successful email/password login
-      navigate('/'); 
+      // Navigate to dashboard after successful auth
+      navigate('/dashboard'); 
 
     } catch (error) {
-      alert(" " + error.message);
+      toast.show(error.message || 'Authentication failed', 'error');
     }
   };
 
@@ -121,12 +125,20 @@ export default function SignupLogin() {
       await signInWithPopup(auth, provider);
       try { const u = auth.currentUser; if (u) { await registerEmail(u.displayName || 'User', u.email); } } catch (e) { console.error('registerEmail (social) failed', e); }
       try { await notifyLogin(); } catch (e) { console.error('notify login (social) failed', e); }
-      
+      document.cookie = 'bloomence_session=true; path=/; max-age=2592000';
+      toast.show('Successfully logged in with ' + providerName, 'success');
       // Navigate on success for all social logins
-      navigate('/'); 
+      navigate('/dashboard'); 
 
     } catch (error) {
-      alert(" " + error.message);
+      // Handle common popup issues gracefully
+      if (error && error.code === 'auth/popup-closed-by-user') {
+        toast.show('Popup closed before completing sign-in. Please try again.', 'info');
+      } else if (error && error.code === 'auth/unauthorized-domain') {
+        toast.show('This domain is not authorized in Firebase Auth settings.', 'error');
+      } else {
+        toast.show(error.message || 'Social login failed', 'error');
+      }
     }
   };
 
