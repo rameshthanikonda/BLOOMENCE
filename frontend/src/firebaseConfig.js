@@ -20,10 +20,12 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 
 export const googleProvider = new GoogleAuthProvider();
+googleProvider.setCustomParameters({ prompt: 'select_account' });
 
 // 🟢 NEW PROVIDERS ADDED 
 // 1. Microsoft Provider (using 'microsoft.com' as the provider ID)
 export const microsoftProvider = new OAuthProvider('microsoft.com');
+try { microsoftProvider.setCustomParameters({ prompt: 'select_account' }); } catch (_) {}
 
 // 2. Apple Provider (using 'apple.com' as the provider ID)
 export const appleProvider = new OAuthProvider('apple.com');

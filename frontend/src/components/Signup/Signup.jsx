@@ -163,10 +163,8 @@ export default function SignupLogin() {
   return (
     <div className="auth-container">
       <div className="auth-box">
-        <h2>{isLogin ? "Log in" : "Sign up"}</h2>
-        <p>
-          Sign-Up for free to access all features and stay updated.
-        </p>
+        <h2>Welcome to Bloomence</h2>
+        <p>Sign in or create an account to continue.</p>
 
         {!showEmailForm ? (
           <>

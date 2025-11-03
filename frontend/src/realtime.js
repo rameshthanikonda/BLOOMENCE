@@ -9,15 +9,22 @@ export async function connectRealtime() {
     auth: { token },
   });
 
-  socket.on('connect', () => console.log('[socket] connected', socket.id));
-  socket.on('connect_error', (err) => console.error('[socket] connect_error', err.message));
-  socket.on('disconnect', (reason) => console.warn('[socket] disconnect', reason));
+  const isDev = import.meta.env && import.meta.env.DEV;
 
-  // Common events from backend
-  socket.on('email:sent', (p) => console.log('[socket] email:sent', p));
-  socket.on('auth:login', (p) => console.log('[socket] auth:login', p));
-  socket.on('result:saved', (p) => console.log('[socket] result:saved', p));
-  socket.on('result:highScoreAlert', (p) => console.log('[socket] result:highScoreAlert', p));
+  socket.on('connect', () => {
+    if (isDev) console.log('[socket] connected');
+  });
+  socket.on('connect_error', (err) => {
+    if (isDev) console.error('[socket] connect_error');
+  });
+  socket.on('disconnect', () => {
+    if (isDev) console.warn('[socket] disconnect');
+  });
+
+  socket.on('email:sent', () => { if (isDev) console.log('[socket] email:sent'); });
+  socket.on('auth:login', () => { if (isDev) console.log('[socket] auth:login'); });
+  socket.on('result:saved', () => { if (isDev) console.log('[socket] result:saved'); });
+  socket.on('result:highScoreAlert', () => { if (isDev) console.log('[socket] result:highScoreAlert'); });
 
   return socket;
 }
